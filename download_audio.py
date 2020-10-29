@@ -1,5 +1,4 @@
 import googleapiclient.discovery
-import asyncio
 from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload
 from io import BytesIO
@@ -10,6 +9,7 @@ from set_up_logging import get_logger
 class GoogleDriveFolderDownloader():
     def __init__(self):
         scopes = ['https://www.googleapis.com/auth/drive']
+        # todo: need to convert this to env friendly way for build
         service_account_file = 'credentials.json'
         credentials = service_account.Credentials.from_service_account_file(
                 service_account_file, scopes=scopes)
@@ -28,7 +28,7 @@ class GoogleDriveFolderDownloader():
             try:
                 mkdir(self.audio)
             except OSError as e:
-                print(e)
+                get_logger().error(e)
                 return
             self.download_all_audio()
 
