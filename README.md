@@ -1,11 +1,7 @@
 # GluhBot
 
+A for-fun bot made in my spare time, to play random audio files.
 
-### Current plans
-!g list
+It downloads them from a Google drive folder that I own. If you want to implement your own, you need to find the ID of your folder as well as get credentials, and then place them in the .env file.
 
-!g play <audio name>
-
-!g loop <audio name>
-
-!g loop <audio name> X 
+The commands can be seen in audio_cog.py, in the options function.
