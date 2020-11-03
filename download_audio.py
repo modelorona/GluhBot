@@ -3,6 +3,7 @@ from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload
 from io import BytesIO
 from os import getenv, path, mkdir
+from json import loads
 from bot_logger import info as log_info, error as log_error
 
 
@@ -10,8 +11,8 @@ class GoogleDriveFolderDownloader():
     def __init__(self):
         scopes = ['https://www.googleapis.com/auth/drive']
         # todo: need to convert this to env friendly way for build
-        service_account_file = 'credentials.json'
-        credentials = service_account.Credentials.from_service_account_file(
+        service_account_file = loads(getenv('GOOGLE_APPLICATION_CREDENTIALS'))
+        credentials = service_account.Credentials.from_service_account_info(
                 service_account_file, scopes=scopes)
         self.audio = getenv('AUDIO_PATH')
         self.drive = googleapiclient.discovery.build('drive', 'v3', credentials=credentials)
