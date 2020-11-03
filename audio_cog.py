@@ -15,6 +15,19 @@ class AudioPlayer(commands.Cog):
         response = '\n'.join([file.split('.')[0] for file in files])
         await ctx.send(response)
 
+
+    @commands.command()
+    async def options(self, ctx):
+        response = '\n'.join([
+            '*!g list* -> get all song names',
+            '*!g play _<song name>_* -> play a specific song',
+            '*!g loop _<song name>_* -> will attempt to loop the given sound forever, use with caution',
+            '*!g loop _X_ _<song name>_* -> will attempt to loop the given sound _X_ amount of times',
+            '*!g stop* -> stop playing the current song',
+            '*!g options* -> print available bot options'
+        ])
+        await ctx.send(response)
+
     @commands.command()
     async def play(self, ctx, *, query):
         query = query + '.mp3'  # assume they type the name of the file correctly
@@ -44,3 +57,4 @@ class AudioPlayer(commands.Cog):
                 await commands.CommandError('Author not connected to a voice channel')
         elif ctx.voice_client.is_playing():
             ctx.voice_client.stop()
+
