@@ -4,8 +4,8 @@
 ### Current plans
 !g list
 
-!g <audio name>
+!g play <audio name>
 
-!g <audio name> loop (forever)
+!g play <audio name> loop (forever)
 
-!g <audio name> loop X
+!g play <audio name> loop X
