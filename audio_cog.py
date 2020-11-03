@@ -26,9 +26,15 @@ class AudioPlayer(commands.Cog):
             source = discord.FFmpegPCMAudio(query)
             ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
 
+    @commands.command()
+    async def stop(self, ctx):
+        if ctx.voice_client is not None:
+            if ctx.voice_client.is_playing():
+                ctx.voice_client.stop()
 
 
     @play.before_invoke
+    @stop.before_invoke
     async def ensure_connected(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
