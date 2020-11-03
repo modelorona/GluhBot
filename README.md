@@ -6,6 +6,6 @@
 
 !g play <audio name>
 
-!g play <audio name> loop (forever)
+!g loop <audio name>
 
-!g play <audio name> loop X
+!g loop X <audio name>
