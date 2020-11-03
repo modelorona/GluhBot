@@ -1,3 +1,8 @@
+# for non windows sytem, load the opus audio manually
+from os import name
+if name != 'nt':
+    import load_opus
+
 from dotenv import load_dotenv
 load_dotenv()
 from os import getenv
