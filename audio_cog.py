@@ -1,7 +1,8 @@
-from os import walk, listdir, getenv
+from os import listdir, getenv
 from discord import FFmpegPCMAudio
 from bot_logger import error, info
 from discord.ext import commands
+import asyncio
 
 class AudioPlayer(commands.Cog):
     def __init__(self, bot) -> None:
