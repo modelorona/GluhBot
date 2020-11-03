@@ -1,7 +1,7 @@
 from os import walk, listdir, getenv
 import discord
 import asyncio
-from bot_logger import info
+from bot_logger import error, info
 from discord.ext import commands
 
 class AudioPlayer(commands.Cog):
@@ -17,7 +17,15 @@ class AudioPlayer(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, *, query):
-        print(query)
+        query = query + '.mp3'  # assume they type the name of the file correctly
+        if query not in listdir(getenv('AUDIO_PATH')):
+            await ctx.send('That audio does not exist you idiot')
+            await commands.CommandError('File not found: {}'.format(query))
+        else:
+            query = getenv('AUDIO_PATH') + '/' + query
+            source = discord.FFmpegPCMAudio(query)
+            ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
+
 
 
     @play.before_invoke
