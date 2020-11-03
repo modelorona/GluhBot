@@ -1,12 +1,12 @@
 from os import walk, listdir, getenv
-import discord
-import asyncio
+from discord import FFmpegPCMAudio
 from bot_logger import error, info
 from discord.ext import commands
 
 class AudioPlayer(commands.Cog):
     def __init__(self, bot) -> None:
         self.bot = bot
+
 
     @commands.command()
     async def list(self, ctx):
@@ -22,22 +22,48 @@ class AudioPlayer(commands.Cog):
             '*!g list* -> get all song names',
             '*!g play _<song name>_* -> play a specific song',
             '*!g loop _<song name>_* -> will attempt to loop the given sound forever, use with caution',
-            '*!g loop _X_ _<song name>_* -> will attempt to loop the given sound _X_ amount of times',
+            '*!g loop _<song name>_ _<X>_* -> will attempt to loop the given sound _X_ amount of times',
             '*!g stop* -> stop playing the current song',
             '*!g options* -> print available bot options'
         ])
         await ctx.send(response)
 
+
     @commands.command()
-    async def play(self, ctx, *, query):
+    async def play(self, ctx, *, query: str):
         query = query + '.mp3'  # assume they type the name of the file correctly
         if query not in listdir(getenv('AUDIO_PATH')):
             await ctx.send('That audio does not exist you idiot')
             await commands.CommandError('File not found: {}'.format(query))
         else:
             query = getenv('AUDIO_PATH') + '/' + query
-            source = discord.FFmpegPCMAudio(query)
-            ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
+            source = FFmpegPCMAudio(query)
+            await ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
+
+
+    @commands.command()
+    async def loop(self, ctx, name: str, times: int=None):
+        # todo: this below can def be made into a function or decorator check, as it's used in multiple places
+        name = name + '.mp3'
+        if name not in listdir(getenv('AUDIO_PATH')):
+            await ctx.send('That audio does not exist you idiot')
+            await commands.CommandError('File not found: {}'.format(name))
+        else:
+            name = getenv('AUDIO_PATH') + '/' + name
+            source = FFmpegPCMAudio(name)
+
+            # bad implementation, but should work for now
+            def repeat(ctx, audio):
+                ctx.voice_client.play(audio, after=lambda e: repeat(ctx, audio))
+
+            if times is None:
+                # loop time, simple while until death lol
+                while(True):
+                    ctx.voice_client.play(source, after=lambda e: repeat(ctx, source))
+            # else:
+                # for x in range(times):
+
+        
 
     @commands.command()
     async def stop(self, ctx):

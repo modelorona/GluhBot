@@ -8,4 +8,4 @@
 
 !g loop <audio name>
 
-!g loop X <audio name>
+!g loop <audio name> X 
