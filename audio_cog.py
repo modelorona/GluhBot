@@ -39,7 +39,7 @@ class AudioPlayer(commands.Cog):
         else:
             query = getenv('AUDIO_PATH') + '/' + query
             source = FFmpegPCMAudio(query)
-            await ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
+            ctx.voice_client.play(source, after=lambda e: error('Player error: {}'.format(e) if e else None))
 
 
     @commands.command()
