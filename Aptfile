@@ -1,2 +1,4 @@
 espeak
 libespeak1
+pulseaudio
+libpulse0
