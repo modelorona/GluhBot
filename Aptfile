@@ -2,3 +2,5 @@ espeak
 libespeak1
 pulseaudio
 libpulse0
+libpulse0:i386
+libespeak-dev
