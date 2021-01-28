@@ -12,8 +12,10 @@ import download_audio
 import download_blog_tts
 from audio_cog import AudioPlayer
 
-# drive_downloader = download_audio.GoogleDriveFolderDownloader()
-# drive_downloader.download_audio()
+
+# todo: fix this to set up audio folder before the downloaders
+drive_downloader = download_audio.GoogleDriveFolderDownloader()
+drive_downloader.download_audio()
 
 blog_downloader = download_blog_tts.BlogDownloader()
 blog_downloader.download_blog()
