@@ -13,7 +13,7 @@ class AudioPlayer(commands.Cog):
     async def list(self, ctx):
         files = listdir(getenv('AUDIO_PATH'))
         info('sending list of files: {}'.format(len(files)))
-        response = '\n'.join([file.split('.')[0] for file in files])
+        response = '\n'.join(sorted([file.split('.')[0] for file in files]))
         await ctx.send(response)
 
 
