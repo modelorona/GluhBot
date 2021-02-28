@@ -17,7 +17,7 @@ google-auth-oauthlib==0.4.2
 googleapis-common-protos==1.52.0
 gTTS==2.2.1
 gTTS-token==1.1.4
-httplib2==0.18.1
+httplib2==0.19.0
 idna==3.1
 lxml==4.6.2
 multidict==5.1.0
