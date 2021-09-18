@@ -17,8 +17,8 @@ from audio_cog import AudioPlayer
 drive_downloader = download_audio.GoogleDriveFolderDownloader()
 drive_downloader.download_audio()
 
-blog_downloader = download_blog_tts.BlogDownloader()
-blog_downloader.download_blog()
+# blog_downloader = download_blog_tts.BlogDownloader()
+# blog_downloader.download_blog()
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or('!g '))
 
